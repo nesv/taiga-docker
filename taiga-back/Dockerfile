@@ -22,7 +22,6 @@ RUN apt-get -y install \
 	libffi-dev \
 	curl \
 	git \
-	tmux \
 	python3 \
 	python3-pip \
 	python-dev \
@@ -30,11 +29,12 @@ RUN apt-get -y install \
 	python-pip \
 	virtualenvwrapper \
 	libxml2-dev \
-	libxslt-dev
+	libxslt-dev \
+	libpq-dev
 
 # Clone the taiga-back repository.
 RUN git clone https://github.com/taigaio/taiga-back.git /taiga-back
 WORKDIR /taiga-back
 RUN git checkout stable
-RUN mkvirtualenv -p /usr/bin/python3.4 taiga && \
-	pip install -r requirements
+RUN virtualenv -p /usr/bin/python3.4 taiga && \
+	./taiga/bin/pip install -r requirements.txt
